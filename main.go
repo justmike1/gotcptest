@@ -70,8 +70,6 @@ func handleConnection(conn net.Conn) {
 	for s.Scan() {
 		line := strings.TrimSpace(s.Text())
 		switch line {
-		case "":
-			write("", conn)
 		case "exit":
 			write("Goodbye.", conn)
 			time.Sleep(500 * time.Millisecond)
@@ -83,8 +81,12 @@ func handleConnection(conn net.Conn) {
 			write(conn.LocalAddr(), conn)
 		case "whoami":
 			write(conn.RemoteAddr(), conn)
+		case "name":
+			write(name, conn)
+		case "", "help":
+			fallthrough
 		default:
-			write("What was that?", conn)
+			write("usage: (help|host|ip|whoami|name|exit)", conn)
 		}
 	}
 }

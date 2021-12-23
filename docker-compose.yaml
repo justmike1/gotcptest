@@ -1,0 +1,10 @@
+version: "3"
+services:
+  app:
+    build: .
+    image: rwxrob/gotcptest
+    ports:
+      - "1337:1337"
+    environment:
+      - PORT=1337
+      - NAME=other
